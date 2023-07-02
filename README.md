@@ -1,8 +1,6 @@
 - 👋 Hi, I’m @Qucy
 - 👀 I’m interested in Cloud, Python, Machine Learning and Computer Vision
-- 🌱 I’m currently learning and practise Machine Learning skills at Kaggle
-- 💞️ I’m looking to collaborate on interesting Machine Learning projects
-- 📫 How to reach me tracyqucy@gmail.com
+- 🌱 I’m currently learning Rust and doing Poc with Gen AI models
 
 <!---
 Qucy/Qucy is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
