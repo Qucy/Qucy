@@ -33,14 +33,14 @@
 - **📚 Performance Note:** Starting June 3rd, we began adding examples to responses, which explains the climbing performance trend observed in the data.
 
 ### Daily Distribution (June 2-7, 2025)
-| Date | Interactions | Satisfaction Rate |
-|------|-------------|------------------|
-| 2025-06-02 | 378 | 65.3% |
-| 2025-06-03 | 330 | 77.6% |
-| 2025-06-04 | 277 | 88.4% |
-| 2025-06-05 | 693 | 83.1% |
-| 2025-06-06 | 608 | 83.2% |
-| 2025-06-07 | 110 | 89.1% |
+| Date | Interactions | Samples Added | Satisfaction Rate |
+|------|-------------|--------------|------------------|
+| 2025-06-02 | 378 | 0 | 65.3% |
+| 2025-06-03 | 330 | 50 | 77.6% |
+| 2025-06-04 | 277 | 120+ | 88.4% |
+| 2025-06-05 | 693 | 120+ | 83.1% |
+| 2025-06-06 | 608 | 120+ | 83.2% |
+| 2025-06-07 | 110 | 120+ | 89.1% |
 
 
 ### Weekly Distribution
@@ -59,6 +59,8 @@
 ## 🏷️ Category Performance
 
 ### Overall Category Performance
+- **Only thumbs donw will gets a comment**
+
 | Category | Interactions | Satisfaction Rate | Comments Received |
 |----------|-------------|------------------|------------------|
 | Accounts | 315 | 84.4% | 49 |
