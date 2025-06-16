@@ -1,6 +1,6 @@
 # 🤖 Chatbot Feedback Analysis Report
 
-**Generated on:** 2025-06-16 10:44:51
+**Generated on:** 2025-06-16 10:59:11
 
 ---
 
@@ -21,7 +21,7 @@
 1. ✅ **Good**: Satisfaction rate of 80.4% is above target.
 2. 📊 Focus improvement efforts on 'General' category (satisfaction: 0.0%)
 3. 🏆 Leverage successful patterns from 'Community Banking' category (satisfaction: 93.8%)
-4. 🎯 **Scenario Analysis**: Provided questions (Scenario A) perform 3.9% better than open-ended questions (Scenario B). Consider expanding the provided question set.
+4. 🎯 **Scenario Analysis**: Provided questions (Scenario A) perform 4.2% better than open-ended questions (Scenario B). Consider expanding the provided question set.
 5. 📅 **Peak Usage**: Highest activity on 2025-06-05 during the analyzed period.
 6. 🔧 **Fix**: Address issues in 'Help and support' - highest source of complaints.
 
@@ -31,10 +31,10 @@
 ## 📈 Temporal Analysis
 
 ### Usage Patterns
-- **Peak Usage Date (06-02 to 06-07):** 2025-06-05
+- **Peak Usage Date:** 2025-06-05
 - **📚 Performance Note:** Starting June 3rd, we began adding examples to responses, which explains the climbing performance trend observed in the data.
 
-### Daily Distribution (June 2-7, 2025)
+### Daily Distribution
 | Date | Interactions | Satisfaction Rate |
 |------|-------------|------------------|
 | 2025-06-02 | 378 | 65.3% |
@@ -43,6 +43,11 @@
 | 2025-06-05 | 693 | 83.1% |
 | 2025-06-06 | 608 | 83.2% |
 | 2025-06-07 | 110 | 89.1% |
+| 2025-06-09 | 66 | 89.4% |
+| 2025-06-10 | 5 | 80.0% |
+| 2025-06-11 | 25 | 76.0% |
+| 2025-06-12 | 24 | 66.7% |
+| 2025-06-13 | 15 | 53.3% |
 
 
 ### Weekly Distribution
@@ -61,8 +66,8 @@
 #### Overall Scenario Performance
 | Scenario | Total Interactions | Satisfaction Rate | Avg Daily Interactions |
 |----------|-------------------|------------------|----------------------|
-| Scenario A | 1446 | 82.0% | 241.0 |
-| Scenario B | 950 | 78.1% | 158.3 |
+| Scenario A | 1481 | 82.1% | 134.6 |
+| Scenario B | 1050 | 77.9% | 95.5 |
 
  
  #### Daily Scenario Distribution
@@ -74,6 +79,11 @@
 | 2025-06-05 | 406 | 287 | 693 | 58.6% | 41.4% | 86.0% | 79.1% |
 | 2025-06-06 | 431 | 177 | 608 | 70.9% | 29.1% | 83.5% | 82.5% |
 | 2025-06-07 | 46 | 64 | 110 | 41.8% | 58.2% | 93.5% | 85.9% |
+| 2025-06-09 | 35 | 31 | 66 | 53.0% | 47.0% | 85.7% | 93.5% |
+| 2025-06-10 | 0 | 5 | 5 | 0.0% | 100.0% | N/A | 80.0% |
+| 2025-06-11 | 0 | 25 | 25 | 0.0% | 100.0% | N/A | 76.0% |
+| 2025-06-12 | 0 | 24 | 24 | 0.0% | 100.0% | N/A | 66.7% |
+| 2025-06-13 | 0 | 15 | 15 | 0.0% | 100.0% | N/A | 53.3% |
 
 
 ---
