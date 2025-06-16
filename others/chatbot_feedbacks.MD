@@ -1,24 +1,24 @@
 # 🤖 Chatbot Feedback Analysis Report
 
-**Generated on:** 2025-06-16 08:52:57
+**Generated on:** 2025-06-16 10:44:51
 
 ---
 
 ## 📊 Executive Summary
 
 ### Key Metrics
-- **Total Interactions:** 2,396
-- **Overall Satisfaction Rate:** 80.5%
-- **Thumbs Up:** 1,928 (80.5%)
-- **Thumbs Down:** 468 (19.5%)
-- **Feedback Completion Rate:** 19.5%
-- **Analysis Period:** 2025-06-02 to 2025-06-07 (6 days)
+- **Total Interactions:** 2,531
+- **Overall Satisfaction Rate:** 80.4%
+- **Thumbs Up:** 2,034 (80.4%)
+- **Thumbs Down:** 497 (19.6%)
+- **Feedback Completion Rate:** 19.6%
+- **Analysis Period:** 2025-06-02 to 2025-06-13 (12 days)
 
 ---
 
 ## 🎯 Key Recommendations
 
-1. ✅ **Good**: Satisfaction rate of 80.5% is above target.
+1. ✅ **Good**: Satisfaction rate of 80.4% is above target.
 2. 📊 Focus improvement efforts on 'General' category (satisfaction: 0.0%)
 3. 🏆 Leverage successful patterns from 'Community Banking' category (satisfaction: 93.8%)
 4. 🎯 **Scenario Analysis**: Provided questions (Scenario A) perform 3.9% better than open-ended questions (Scenario B). Consider expanding the provided question set.
@@ -48,12 +48,12 @@
 ### Weekly Distribution
 | Day | Interactions | Satisfaction Rate |
 |-----|-------------|------------------|
-| Friday | 608 | 83.2% |
-| Monday | 378 | 65.3% |
+| Friday | 623 | 82.5% |
+| Monday | 444 | 68.9% |
 | Saturday | 110 | 89.1% |
-| Thursday | 693 | 83.1% |
-| Tuesday | 330 | 77.6% |
-| Wednesday | 277 | 88.4% |
+| Thursday | 717 | 82.6% |
+| Tuesday | 335 | 77.6% |
+| Wednesday | 302 | 87.4% |
 
 
 ### Scenario Analysis (Temporal)
@@ -83,19 +83,19 @@
 ### Overall Category Performance
 | Category | Interactions | Satisfaction Rate | Comments Received |
 |----------|-------------|------------------|------------------|
-| Accounts | 314 | 84.7% | 48 |
+| Accounts | 328 | 83.8% | 53 |
 | Community Banking | 48 | 93.8% | 3 |
 | General | 2 | 0.0% | 2 |
-| HSBC credit cards | 427 | 79.2% | 89 |
-| Help and support | 299 | 62.2% | 113 |
-| Insurance | 308 | 86.7% | 41 |
-| International services | 52 | 78.8% | 11 |
-| Investments | 335 | 80.9% | 64 |
-| Loans | 103 | 84.5% | 16 |
-| MPF | 122 | 82.8% | 21 |
-| Mortgages | 88 | 87.5% | 11 |
-| Payments and transfers | 62 | 87.1% | 8 |
-| Ways to bank | 236 | 82.6% | 41 |
+| HSBC credit cards | 478 | 79.9% | 96 |
+| Help and support | 312 | 62.8% | 116 |
+| Insurance | 331 | 86.1% | 46 |
+| International services | 54 | 79.6% | 11 |
+| Investments | 342 | 81.0% | 65 |
+| Loans | 105 | 84.8% | 16 |
+| MPF | 124 | 82.3% | 22 |
+| Mortgages | 90 | 87.8% | 11 |
+| Payments and transfers | 66 | 86.4% | 9 |
+| Ways to bank | 251 | 81.3% | 47 |
 
 
 ### Best vs Worst Performing Categories
@@ -107,18 +107,18 @@
 ## 📝 Content Quality Analysis
 
 ### Response Length Statistics
-- **Average Response Length:** 266 characters
-- **Median Response Length:** 247 characters
+- **Average Response Length:** 273 characters
+- **Median Response Length:** 248 characters
 - **Average Question Length:** 62 characters
 
 ### Satisfaction by Response Length
 | Length Category | Satisfaction Rate |
 |-----------------|------------------|
 | 15-515 chars | 80.0% |
-| 515-1013 chars | 88.9% |
-| 1013-1511 chars | 88.9% |
-| 1511-2009 chars | 66.7% |
-| 2009-2507 chars | 100.0% |
+| 515-1013 chars | 87.6% |
+| 1013-1511 chars | 80.0% |
+| 1511-2009 chars | 83.3% |
+| 2009-2507 chars | 50.0% |
 
 
 ---
@@ -127,13 +127,13 @@
 
 | Question Type | Interactions | Satisfaction Rate |
 |---------------|-------------|------------------|
-| How | 541 | 79.9% |
-| Other | 200 | 70.0% |
-| What | 771 | 83.5% |
-| When | 27 | 85.2% |
-| Where | 250 | 82.8% |
-| Why | 10 | 90.0% |
-| Yes/No | 597 | 79.2% |
+| How | 558 | 79.7% |
+| Other | 215 | 70.7% |
+| What | 811 | 83.1% |
+| When | 29 | 86.2% |
+| Where | 258 | 83.3% |
+| Why | 12 | 91.7% |
+| Yes/No | 648 | 79.0% |
 
 
 ---
@@ -143,24 +143,24 @@
 ### Failed Cases Distribution by Feedback Comment Category
 | Feedback Comment Category | Count | Percentage |
 |---------------------------|-------|------------|
-| Incomplete/Generic Answer | 76 | 16.2% |
-| Contextual Awareness Failure | 55 | 11.8% |
-| Missing Information/Source | 53 | 11.3% |
-| Lack of Comparison/Summary | 41 | 8.8% |
-| Irrelevant Answer | 39 | 8.3% |
-| Redirect to Customer Service | 38 | 8.1% |
-| Product/Service Knowledge Gaps | 30 | 6.4% |
-| Incorrect/Factual Errors | 23 | 4.9% |
-| Information Retrieval Failure | 16 | 3.4% |
-| Error Messages | 15 | 3.2% |
-| Broken/Incorrect Links | 13 | 2.8% |
-| Link Management Issues | 13 | 2.8% |
-| No Step-by-Step Guidance | 13 | 2.8% |
-| Poor Tone/Phrasing | 10 | 2.1% |
-| Ambiguous/Vague Response | 10 | 2.1% |
-| General | 7 | 1.5% |
-| Lack of Personalization | 6 | 1.3% |
-| Campaign/Promo Support Failure | 4 | 0.9% |
+| Incomplete/Generic Answer | 85 | 17.1% |
+| Contextual Awareness Failure | 57 | 11.5% |
+| Missing Information/Source | 53 | 10.7% |
+| Lack of Comparison/Summary | 43 | 8.7% |
+| Irrelevant Answer | 41 | 8.2% |
+| Redirect to Customer Service | 40 | 8.0% |
+| Product/Service Knowledge Gaps | 35 | 7.0% |
+| Incorrect/Factual Errors | 28 | 5.6% |
+| Information Retrieval Failure | 17 | 3.4% |
+| Error Messages | 15 | 3.0% |
+| Broken/Incorrect Links | 13 | 2.6% |
+| Link Management Issues | 13 | 2.6% |
+| No Step-by-Step Guidance | 13 | 2.6% |
+| Poor Tone/Phrasing | 10 | 2.0% |
+| Ambiguous/Vague Response | 10 | 2.0% |
+| Lack of Personalization | 7 | 1.4% |
+| General | 7 | 1.4% |
+| Campaign/Promo Support Failure | 4 | 0.8% |
 | User Experience & Communication Gaps | 3 | 0.6% |
 | Policy/Procedure Ignorance | 2 | 0.4% |
 | Technical & Functional Failures | 1 | 0.2% |
@@ -169,19 +169,19 @@
 ### Breakdown by Category and Feedback Comment Category
 | Category | Ambiguous/Vague Response | Broken/Incorrect Links | Campaign/Promo Support Failure | Contextual Awareness Failure | Error Messages | General | Incomplete/Generic Answer | Incorrect/Factual Errors | Information Retrieval Failure | Irrelevant Answer | Lack of Comparison/Summary | Lack of Personalization | Link Management Issues | Missing Information/Source | No Step-by-Step Guidance | Policy/Procedure Ignorance | Poor Tone/Phrasing | Product/Service Knowledge Gaps | Redirect to Customer Service | Technical & Functional Failures | User Experience & Communication Gaps | Total |
 |----------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|-------|
-| Accounts | 1 | 1 | 0 | 1 | 2 | 2 | 9 | 6 | 2 | 2 | 10 | 1 | 0 | 2 | 1 | 1 | 0 | 2 | 2 | 0 | 3 | 48 |
+| Accounts | 1 | 1 | 0 | 1 | 2 | 2 | 10 | 8 | 3 | 2 | 10 | 1 | 0 | 2 | 1 | 1 | 0 | 3 | 2 | 0 | 3 | 53 |
 | Community Banking | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | 3 |
 | General | 0 | 0 | 0 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
-| HSBC credit cards | 3 | 3 | 1 | 14 | 6 | 1 | 12 | 5 | 3 | 11 | 3 | 1 | 7 | 8 | 6 | 0 | 2 | 2 | 1 | 0 | 0 | 89 |
-| Help and support | 1 | 3 | 2 | 24 | 2 | 0 | 18 | 3 | 4 | 6 | 8 | 0 | 0 | 17 | 2 | 0 | 2 | 10 | 11 | 0 | 0 | 113 |
-| Insurance | 0 | 2 | 1 | 2 | 2 | 2 | 5 | 0 | 1 | 3 | 4 | 2 | 0 | 6 | 0 | 0 | 3 | 6 | 2 | 0 | 0 | 41 |
+| HSBC credit cards | 3 | 3 | 1 | 14 | 6 | 1 | 13 | 6 | 3 | 12 | 3 | 2 | 7 | 8 | 6 | 0 | 2 | 4 | 2 | 0 | 0 | 96 |
+| Help and support | 1 | 3 | 2 | 25 | 2 | 0 | 18 | 4 | 4 | 6 | 9 | 0 | 0 | 17 | 2 | 0 | 2 | 10 | 11 | 0 | 0 | 116 |
+| Insurance | 0 | 2 | 1 | 2 | 2 | 2 | 8 | 0 | 1 | 3 | 5 | 2 | 0 | 6 | 0 | 0 | 3 | 6 | 3 | 0 | 0 | 46 |
 | International services | 0 | 0 | 0 | 0 | 0 | 0 | 5 | 0 | 0 | 0 | 2 | 0 | 1 | 1 | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 11 |
-| Investments | 2 | 3 | 0 | 7 | 1 | 1 | 10 | 5 | 2 | 5 | 6 | 1 | 1 | 8 | 1 | 0 | 1 | 2 | 8 | 0 | 0 | 64 |
+| Investments | 2 | 3 | 0 | 7 | 1 | 1 | 10 | 5 | 2 | 5 | 6 | 1 | 1 | 8 | 1 | 0 | 1 | 3 | 8 | 0 | 0 | 65 |
 | Loans | 1 | 1 | 0 | 1 | 0 | 0 | 2 | 0 | 1 | 2 | 1 | 0 | 0 | 2 | 1 | 0 | 1 | 2 | 0 | 1 | 0 | 16 |
-| MPF | 0 | 0 | 0 | 0 | 0 | 0 | 7 | 0 | 2 | 1 | 2 | 0 | 2 | 3 | 0 | 0 | 0 | 2 | 2 | 0 | 0 | 21 |
+| MPF | 0 | 0 | 0 | 1 | 0 | 0 | 7 | 0 | 2 | 1 | 2 | 0 | 2 | 3 | 0 | 0 | 0 | 2 | 2 | 0 | 0 | 22 |
 | Mortgages | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 2 | 4 | 0 | 0 | 0 | 3 | 0 | 0 | 0 | 11 |
-| Payments and transfers | 1 | 0 | 0 | 1 | 0 | 1 | 1 | 1 | 0 | 2 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 8 |
-| Ways to bank | 1 | 0 | 0 | 3 | 2 | 0 | 7 | 3 | 0 | 6 | 5 | 0 | 0 | 2 | 1 | 1 | 1 | 0 | 9 | 0 | 0 | 41 |
+| Payments and transfers | 1 | 0 | 0 | 1 | 0 | 1 | 2 | 1 | 0 | 2 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 9 |
+| Ways to bank | 1 | 0 | 0 | 3 | 2 | 0 | 10 | 4 | 0 | 7 | 5 | 0 | 0 | 2 | 1 | 1 | 1 | 1 | 9 | 0 | 0 | 47 |
 
 
 ---
@@ -197,31 +197,36 @@
 | 2025-06-05 | 6 | 3 | 0 | 19 | 5 | 4 | 26 | 6 | 0 | 8 | 11 | 1 | 0 | 7 | 3 | 1 | 3 | 5 | 9 | 0 | 0 | 117 |
 | 2025-06-06 | 4 | 6 | 3 | 7 | 5 | 3 | 22 | 9 | 5 | 4 | 8 | 0 | 1 | 15 | 2 | 0 | 0 | 3 | 3 | 0 | 2 | 102 |
 | 2025-06-07 | 0 | 0 | 0 | 2 | 1 | 0 | 4 | 0 | 0 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 0 | 12 |
+| 2025-06-09 | 0 | 0 | 0 | 1 | 0 | 0 | 4 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 7 |
+| 2025-06-10 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 |
+| 2025-06-11 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 2 | 1 | 0 | 0 | 6 |
+| 2025-06-12 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 4 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 8 |
+| 2025-06-13 | 0 | 0 | 0 | 1 | 0 | 0 | 2 | 1 | 0 | 0 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 7 |
 
 
 ### Negative Feedback by Category
 | Category | Negative Feedback Count |
 |----------|------------------------|
-| Help and support | 113 |
-| HSBC credit cards | 89 |
-| Investments | 64 |
-| Accounts | 48 |
-| Insurance | 41 |
+| Help and support | 116 |
+| HSBC credit cards | 96 |
+| Investments | 65 |
+| Accounts | 53 |
+| Ways to bank | 47 |
 
 
 ### Common Complaint Keywords
 | Keyword | Frequency |
 |---------|----------|
-| response | 307 |
-| expected | 288 |
-| feedback | 278 |
-| hsbc | 212 |
+| response | 323 |
+| expected | 303 |
+| feedback | 293 |
+| hsbc | 246 |
 | scenario | 193 |
-| provide | 163 |
-| answer | 147 |
-| chatbot | 136 |
-| information | 110 |
-| should | 110 |
+| provide | 168 |
+| answer | 164 |
+| chatbot | 148 |
+| should | 116 |
+| information | 115 |
 
 
 ---
@@ -247,8 +252,8 @@
 
 ## 📊 Data Quality Notes
 
-- **Total Records Analyzed:** 2,396
-- **Records with Comments:** 468
+- **Total Records Analyzed:** 2,531
+- **Records with Comments:** 497
 - **Data Completeness:** 88.5%
 
 ---
