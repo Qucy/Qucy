@@ -74,7 +74,7 @@
  
  #### Daily Scenario Distribution
 #### Daily Scenario Distribution
-| Date       | # Preset Questions | # Free Form Questions | Total | Total samples | Preset Questions | Free Form Questions |
+| Date       | # Preset Questions | # Free Form Questions | # Total Questions | Total samples | % Preset Questions Thumbs Up | % Free Form Questions Thumbs Up |
 |------------|------------|------------|-------|---------------|----------------|----------------|
 | 2025-06-02 | 211        | 167        | 378   | 0             | 67.3%          | 62.9%          |
 | 2025-06-03 | 219        | 111        | 330   | 50            | 76.3%          | 80.2%          |
