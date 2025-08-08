@@ -1,3 +1,9 @@
+<!-- 
+<style>
+table { width: 100%; }
+</style>
+-->
+
 # AI Models Comparison Table
 
 This table provides a comprehensive comparison of various AI language models and their architectural characteristics.
