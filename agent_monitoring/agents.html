@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Management - HSBC Agentic Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hsbc-red: #DB0011;
+            --hsbc-dark-red: #A8000C;
+            --hsbc-gray: #6B7280;
+            --hsbc-light-gray: #F3F4F6;
+            --hsbc-dark-gray: #374151;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+            min-height: 100vh;
+        }
+        
+        .hexagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+        }
+        
+        .hexagon-bg {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(219, 0, 17, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(219, 0, 17, 0.05) 0%, transparent 50%);
+        }
+        
+        .agent-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(219, 0, 17, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .agent-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(219, 0, 17, 0.15);
+            border-color: var(--hsbc-red);
+        }
+        
+        .nav-item {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            color: var(--hsbc-red);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--hsbc-red);
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .status-online { background: #10B981; }
+        .status-warning { background: #F59E0B; }
+        .status-error { background: #EF4444; }
+        .status-offline { background: #6B7280; }
+        
+        .pulse-green {
+            animation: pulse-green 2s infinite;
+        }
+        
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+        }
+        
+        .config-editor {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #cbd5e1;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #DB0011;
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(26px);
+        }
+        
+        .resource-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .resource-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="hexagon-bg">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg border-b-2 border-red-600 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-8">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-red-600 hexagon flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">H</span>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold text-gray-900">HSBC</h1>
+                            <p class="text-xs text-gray-500">Agentic Monitoring</p>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="index.html" class="nav-item text-gray-600 hover:text-red-600 font-medium px-3 py-2">Dashboard</a>
+                        <a href="agents.html" class="nav-item active text-gray-900 font-medium px-3 py-2">Agents</a>
+                        <a href="analytics.html" class="nav-item text-gray-600 hover:text-red-600 font-medium px-3 py-2">Analytics</a>
+                        <a href="settings.html" class="nav-item text-gray-600 hover:text-red-600 font-medium px-3 py-2">Settings</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-2 text-sm text-gray-600">
+                        <span class="status-indicator status-online pulse-green"></span>
+                        <span>All Systems Operational</span>
+                    </div>
+                    <div class="w-8 h-8 bg-gray-300 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Agent Management</h2>
+                    <p class="text-gray-600">Monitor, configure, and manage your AI agent fleet</p>
+                </div>
+                <div class="mt-6 lg:mt-0 flex space-x-4">
+                    <button class="bg-red-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors" onclick="showDeployModal()">
+                        Deploy Agent
+                    </button>
+                    <button class="bg-gray-100 text-gray-700 px-6 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors" onclick="bulkOperations()">
+                        Bulk Operations
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter and Search -->
+    <section class="px-4 sm:px-6 lg:px-8 mb-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
+                    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                        <div class="relative">
+                            <input type="text" placeholder="Search agents..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" id="search-input">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500" id="status-filter">
+                            <option value="">All Status</option>
+                            <option value="online">Online</option>
+                            <option value="warning">Warning</option>
+                            <option value="error">Error</option>
+                            <option value="offline">Offline</option>
+                        </select>
+                        <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500" id="type-filter">
+                            <option value="">All Types</option>
+                            <option value="finance">Finance</option>
+                            <option value="trading">Trading</option>
+                            <option value="analytics">Analytics</option>
+                            <option value="security">Security</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-600">View:</span>
+                        <button class="px-3 py-1 bg-red-100 text-red-600 rounded-lg text-sm font-medium" onclick="toggleView('grid')" id="grid-view">Grid</button>
+                        <button class="px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-sm font-medium" onclick="toggleView('list')" id="list-view">List</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agents Grid -->
+    <section class="px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="agents-grid">
+                <!-- Agent cards will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Agent Details Modal -->
+    <div id="agent-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-8 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold text-gray-900" id="modal-agent-name">Agent Details</h3>
+                <button class="text-gray-400 hover:text-gray-600" onclick="closeAgentModal()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Agent Info -->
+                <div>
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Agent Information</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Status:</span>
+                                <span id="modal-agent-status" class="font-medium">Online</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Type:</span>
+                                <span id="modal-agent-type" class="font-medium">Finance</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Version:</span>
+                                <span id="modal-agent-version" class="font-medium">v2.1.0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Uptime:</span>
+                                <span id="modal-agent-uptime" class="font-medium">99.8%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resource Usage -->
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Resource Usage</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600">CPU Usage</span>
+                                    <span class="font-medium" id="modal-cpu-usage">45%</span>
+                                </div>
+                                <div class="resource-bar">
+                                    <div class="resource-fill bg-red-500" style="width: 45%" id="modal-cpu-bar"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600">Memory</span>
+                                    <span class="font-medium" id="modal-memory-usage">62%</span>
+                                </div>
+                                <div class="resource-bar">
+                                    <div class="resource-fill bg-yellow-500" style="width: 62%" id="modal-memory-bar"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-600">Network</span>
+                                    <span class="font-medium" id="modal-network-usage">28%</span>
+                                </div>
+                                <div class="resource-bar">
+                                    <div class="resource-fill bg-green-500" style="width: 28%" id="modal-network-bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Configuration -->
+                <div>
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Configuration</h4>
+                        <div class="config-editor" contenteditable="true" id="config-editor">
+{
+  "name": "Agent-Finance-01",
+  "type": "finance",
+  "version": "2.1.0",
+  "settings": {
+    "max_concurrent_tasks": 10,
+    "timeout_seconds": 30,
+    "retry_attempts": 3,
+    "log_level": "info"
+  },
+  "resources": {
+    "cpu_limit": "1000m",
+    "memory_limit": "2Gi",
+    "storage_limit": "10Gi"
+  }
+}
+                        </div>
+                        <div class="flex space-x-3 mt-4">
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors" onclick="saveConfig()">
+                                Save Changes
+                            </button>
+                            <button class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors" onclick="resetConfig()">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-gray-900 mb-4">Actions</h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors" onclick="startAgent()">
+                                Start
+                            </button>
+                            <button class="bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition-colors" onclick="stopAgent()">
+                                Stop
+                            </button>
+                            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors" onclick="restartAgent()">
+                                Restart
+                            </button>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors" onclick="deleteAgent()">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Chart -->
+            <div class="mt-8">
+                <h4 class="text-lg font-semibold text-gray-900 mb-4">Performance Metrics</h4>
+                <div id="agent-performance-chart" class="h-64 bg-gray-50 rounded-lg"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deploy Modal -->
+    <div id="deploy-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
+            <h3 class="text-xl font-bold text-gray-900 mb-6">Deploy New Agent</h3>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Agent Name</label>
+                    <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="agent-name">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Agent Type</label>
+                    <select class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                        <option value="finance">Finance</option>
+                        <option value="trading">Trading</option>
+                        <option value="analytics">Analytics</option>
+                        <option value="security">Security</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Version</label>
+                    <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500" placeholder="v1.0.0">
+                </div>
+                <div class="flex space-x-3 pt-4">
+                    <button type="submit" class="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors">
+                        Deploy
+                    </button>
+                    <button type="button" class="flex-1 bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors" onclick="closeDeployModal()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-red-600 hexagon flex items-center justify-center">
+                    <span class="text-white font-bold">H</span>
+                </div>
+                <span class="text-lg font-semibold">HSBC Agentic Monitoring</span>
+            </div>
+            <p class="text-gray-400 text-sm">© 2024 HSBC Holdings plc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Agent data
+        const agents = [
+            {
+                id: 1,
+                name: 'Agent-Finance-01',
+                type: 'finance',
+                status: 'online',
+                version: 'v2.1.0',
+                uptime: '99.8%',
+                cpu: 45,
+                memory: 62,
+                network: 28,
+                tasks: 127,
+                errors: 3
+            },
+            {
+                id: 2,
+                name: 'Agent-Trading-02',
+                type: 'trading',
+                status: 'warning',
+                version: 'v2.0.8',
+                uptime: '98.2%',
+                cpu: 78,
+                memory: 85,
+                network: 45,
+                tasks: 89,
+                errors: 12
+            },
+            {
+                id: 3,
+                name: 'Agent-Analytics-03',
+                type: 'analytics',
+                status: 'online',
+                version: 'v1.9.2',
+                uptime: '99.5%',
+                cpu: 32,
+                memory: 41,
+                network: 19,
+                tasks: 203,
+                errors: 1
+            },
+            {
+                id: 4,
+                name: 'Agent-Security-04',
+                type: 'security',
+                status: 'error',
+                version: 'v2.1.0',
+                uptime: '95.1%',
+                cpu: 92,
+                memory: 88,
+                network: 67,
+                tasks: 45,
+                errors: 28
+            },
+            {
+                id: 5,
+                name: 'Agent-Finance-05',
+                type: 'finance',
+                status: 'online',
+                version: 'v2.1.0',
+                uptime: '99.9%',
+                cpu: 38,
+                memory: 55,
+                network: 22,
+                tasks: 156,
+                errors: 0
+            },
+            {
+                id: 6,
+                name: 'Agent-Trading-06',
+                type: 'trading',
+                status: 'offline',
+                version: 'v1.8.5',
+                uptime: '0%',
+                cpu: 0,
+                memory: 0,
+                network: 0,
+                tasks: 0,
+                errors: 0
+            }
+        ];
+
+        let currentView = 'grid';
+        let filteredAgents = [...agents];
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderAgents();
+            initializeFilters();
+            initializeAnimations();
+        });
+
+        // Render agents
+        function renderAgents() {
+            const grid = document.getElementById('agents-grid');
+            grid.innerHTML = '';
+
+            filteredAgents.forEach(agent => {
+                const agentCard = createAgentCard(agent);
+                grid.appendChild(agentCard);
+            });
+
+            // Animate cards
+            anime({
+                targets: '.agent-card',
+                translateY: [20, 0],
+                opacity: [0, 1],
+                duration: 600,
+                easing: 'easeOutQuart',
+                delay: anime.stagger(100)
+            });
+        }
+
+        // Create agent card
+        function createAgentCard(agent) {
+            const card = document.createElement('div');
+            card.className = 'agent-card rounded-2xl p-6 cursor-pointer';
+            card.onclick = () => showAgentModal(agent);
+
+            const statusClass = `status-${agent.status}`;
+            const statusText = agent.status.charAt(0).toUpperCase() + agent.status.slice(1);
+
+            card.innerHTML = `
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-gray-900">${agent.name}</h3>
+                    <div class="flex items-center">
+                        <span class="status-indicator ${statusClass} ${agent.status === 'online' ? 'pulse-green' : ''}"></span>
+                        <span class="text-sm font-medium text-gray-600">${statusText}</span>
+                    </div>
+                </div>
+                
+                <div class="space-y-3 mb-4">
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Type:</span>
+                        <span class="font-medium text-gray-900">${agent.type.charAt(0).toUpperCase() + agent.type.slice(1)}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Version:</span>
+                        <span class="font-medium text-gray-900">${agent.version}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Uptime:</span>
+                        <span class="font-medium text-gray-900">${agent.uptime}</span>
+                    </div>
+                </div>
+                
+                <div class="space-y-2 mb-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">CPU</span>
+                            <span class="font-medium">${agent.cpu}%</span>
+                        </div>
+                        <div class="resource-bar">
+                            <div class="resource-fill bg-red-500" style="width: ${agent.cpu}%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="text-gray-600">Memory</span>
+                            <span class="font-medium">${agent.memory}%</span>
+                        </div>
+                        <div class="resource-bar">
+                            <div class="resource-fill bg-yellow-500" style="width: ${agent.memory}%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-center">
+                    <div class="text-sm text-gray-600">
+                        <span>${agent.tasks} tasks completed</span>
+                        ${agent.errors > 0 ? `<span class="text-red-600 ml-2">${agent.errors} errors</span>` : ''}
+                    </div>
+                    <div class="toggle-switch ${agent.status === 'online' ? 'active' : ''}" onclick="toggleAgentStatus(event, ${agent.id})"></div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Initialize filters
+        function initializeFilters() {
+            const searchInput = document.getElementById('search-input');
+            const statusFilter = document.getElementById('status-filter');
+            const typeFilter = document.getElementById('type-filter');
+
+            searchInput.addEventListener('input', filterAgents);
+            statusFilter.addEventListener('change', filterAgents);
+            typeFilter.addEventListener('change', filterAgents);
+        }
+
+        // Filter agents
+        function filterAgents() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const statusFilter = document.getElementById('status-filter').value;
+            const typeFilter = document.getElementById('type-filter').value;
+
+            filteredAgents = agents.filter(agent => {
+                const matchesSearch = agent.name.toLowerCase().includes(searchTerm);
+                const matchesStatus = !statusFilter || agent.status === statusFilter;
+                const matchesType = !typeFilter || agent.type === typeFilter;
+
+                return matchesSearch && matchesStatus && matchesType;
+            });
+
+            renderAgents();
+        }
+
+        // Toggle view
+        function toggleView(view) {
+            currentView = view;
+            
+            // Update button styles
+            document.getElementById('grid-view').className = view === 'grid' 
+                ? 'px-3 py-1 bg-red-100 text-red-600 rounded-lg text-sm font-medium'
+                : 'px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-sm font-medium';
+            
+            document.getElementById('list-view').className = view === 'list' 
+                ? 'px-3 py-1 bg-red-100 text-red-600 rounded-lg text-sm font-medium'
+                : 'px-3 py-1 bg-gray-100 text-gray-600 rounded-lg text-sm font-medium';
+
+            // Update grid layout
+            const grid = document.getElementById('agents-grid');
+            grid.className = view === 'grid' 
+                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
+                : 'grid grid-cols-1 gap-4';
+
+            renderAgents();
+        }
+
+        // Show agent modal
+        function showAgentModal(agent) {
+            const modal = document.getElementById('agent-modal');
+            
+            // Populate modal with agent data
+            document.getElementById('modal-agent-name').textContent = agent.name;
+            document.getElementById('modal-agent-status').textContent = agent.status.charAt(0).toUpperCase() + agent.status.slice(1);
+            document.getElementById('modal-agent-type').textContent = agent.type.charAt(0).toUpperCase() + agent.type.slice(1);
+            document.getElementById('modal-agent-version').textContent = agent.version;
+            document.getElementById('modal-agent-uptime').textContent = agent.uptime;
+
+            // Update resource usage
+            document.getElementById('modal-cpu-usage').textContent = agent.cpu + '%';
+            document.getElementById('modal-memory-usage').textContent = agent.memory + '%';
+            document.getElementById('modal-network-usage').textContent = agent.network + '%';
+
+            document.getElementById('modal-cpu-bar').style.width = agent.cpu + '%';
+            document.getElementById('modal-memory-bar').style.width = agent.memory + '%';
+            document.getElementById('modal-network-bar').style.width = agent.network + '%';
+
+            modal.classList.remove('hidden');
+
+            // Initialize performance chart
+            setTimeout(() => {
+                initializeAgentChart();
+            }, 100);
+        }
+
+        // Close agent modal
+        function closeAgentModal() {
+            const modal = document.getElementById('agent-modal');
+            modal.classList.add('hidden');
+        }
+
+        // Initialize agent performance chart
+        function initializeAgentChart() {
+            const chartDom = document.getElementById('agent-performance-chart');
+            const chart = echarts.init(chartDom);
+
+            const option = {
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    borderColor: '#DB0011',
+                    borderWidth: 1,
+                    textStyle: { color: '#374151' }
+                },
+                legend: {
+                    data: ['CPU Usage', 'Memory Usage', 'Network Usage'],
+                    textStyle: { color: '#6B7280' }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                    axisLine: { lineStyle: { color: '#E5E7EB' } },
+                    axisLabel: { color: '#6B7280' }
+                },
+                yAxis: {
+                    type: 'value',
+                    max: 100,
+                    axisLine: { lineStyle: { color: '#E5E7EB' } },
+                    axisLabel: { color: '#6B7280' },
+                    splitLine: { lineStyle: { color: '#F3F4F6' } }
+                },
+                series: [
+                    {
+                        name: 'CPU Usage',
+                        type: 'line',
+                        smooth: true,
+                        data: generateRandomData(6, 20, 80),
+                        itemStyle: { color: '#DB0011' }
+                    },
+                    {
+                        name: 'Memory Usage',
+                        type: 'line',
+                        smooth: true,
+                        data: generateRandomData(6, 30, 90),
+                        itemStyle: { color: '#F59E0B' }
+                    },
+                    {
+                        name: 'Network Usage',
+                        type: 'line',
+                        smooth: true,
+                        data: generateRandomData(6, 10, 60),
+                        itemStyle: { color: '#10B981' }
+                    }
+                ]
+            };
+
+            chart.setOption(option);
+        }
+
+        // Toggle agent status
+        function toggleAgentStatus(event, agentId) {
+            event.stopPropagation();
+            const toggle = event.currentTarget;
+            const agent = agents.find(a => a.id === agentId);
+            
+            if (agent) {
+                if (agent.status === 'online') {
+                    agent.status = 'offline';
+                    toggle.classList.remove('active');
+                } else {
+                    agent.status = 'online';
+                    toggle.classList.add('active');
+                }
+                
+                showToast(`${agent.name} ${agent.status === 'online' ? 'started' : 'stopped'}`, 'success');
+                renderAgents();
+            }
+        }
+
+        // Agent actions
+        function startAgent() {
+            showToast('Agent started successfully', 'success');
+            closeAgentModal();
+        }
+
+        function stopAgent() {
+            showToast('Agent stopped successfully', 'success');
+            closeAgentModal();
+        }
+
+        function restartAgent() {
+            showToast('Agent restarted successfully', 'success');
+            closeAgentModal();
+        }
+
+        function deleteAgent() {
+            if (confirm('Are you sure you want to delete this agent?')) {
+                showToast('Agent deleted successfully', 'success');
+                closeAgentModal();
+            }
+        }
+
+        function saveConfig() {
+            showToast('Configuration saved successfully', 'success');
+        }
+
+        function resetConfig() {
+            showToast('Configuration reset to default', 'success');
+        }
+
+        // Deploy modal
+        function showDeployModal() {
+            const modal = document.getElementById('deploy-modal');
+            modal.classList.remove('hidden');
+        }
+
+        function closeDeployModal() {
+            const modal = document.getElementById('deploy-modal');
+            modal.classList.add('hidden');
+        }
+
+        // Bulk operations
+        function bulkOperations() {
+            showToast('Bulk operations panel opened', 'info');
+        }
+
+        // Initialize animations
+        function initializeAnimations() {
+            anime({
+                targets: '.nav-item',
+                translateY: [-10, 0],
+                opacity: [0, 1],
+                duration: 500,
+                easing: 'easeOutQuart',
+                delay: anime.stagger(100, {start: 300})
+            });
+        }
+
+        // Utility functions
+        function generateRandomData(length, min, max) {
+            const data = [];
+            for (let i = 0; i < length; i++) {
+                data.push(Math.floor(Math.random() * (max - min + 1)) + min);
+            }
+            return data;
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-20 right-4 px-6 py-3 rounded-lg text-white font-medium z-50 transform translate-x-full transition-transform duration-300`;
+            
+            switch(type) {
+                case 'success':
+                    toast.classList.add('bg-green-600');
+                    break;
+                case 'error':
+                    toast.classList.add('bg-red-600');
+                    break;
+                case 'warning':
+                    toast.classList.add('bg-yellow-600');
+                    break;
+                default:
+                    toast.classList.add('bg-blue-600');
+            }
+            
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full');
+            }, 100);
+            
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

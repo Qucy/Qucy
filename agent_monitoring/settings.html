@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - HSBC Agentic Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hsbc-red: #DB0011;
+            --hsbc-dark-red: #A8000C;
+            --hsbc-gray: #6B7280;
+            --hsbc-light-gray: #F3F4F6;
+            --hsbc-dark-gray: #374151;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
+            min-height: 100vh;
+        }
+        
+        .hexagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%);
+        }
+        
+        .hexagon-bg {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(219, 0, 17, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(219, 0, 17, 0.05) 0%, transparent 50%);
+        }
+        
+        .settings-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(219, 0, 17, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .settings-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(219, 0, 17, 0.15);
+            border-color: var(--hsbc-red);
+        }
+        
+        .nav-item {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            color: var(--hsbc-red);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--hsbc-red);
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: #cbd5e1;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #DB0011;
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(26px);
+        }
+        
+        .setting-item {
+            border-bottom: 1px solid #f3f4f6;
+            padding: 20px 0;
+        }
+        
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
+            outline: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #DB0011;
+            cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #DB0011;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .tab-button {
+            padding: 12px 24px;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .tab-button.active {
+            color: #DB0011;
+            border-bottom-color: #DB0011;
+        }
+        
+        .tab-button:hover {
+            color: #DB0011;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="hexagon-bg">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg border-b-2 border-red-600 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-8">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-red-600 hexagon flex items-center justify-center">
+                            <span class="text-white font-bold text-lg">H</span>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold text-gray-900">HSBC</h1>
+                            <p class="text-xs text-gray-500">Agentic Monitoring</p>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="index.html" class="nav-item text-gray-600 hover:text-red-600 font-medium px-3 py-2">Dashboard</a>
+                        <a href="agents.html" class="nav-item text-gray-600 hover:text-red-600 font-medium px-3 py-2">Agents</a>
+                        <a href="analytics.html" class="nav-item text-gray-600 hover:text-red-600 font-medium px-3 py-2">Analytics</a>
+                        <a href="settings.html" class="nav-item active text-gray-900 font-medium px-3 py-2">Settings</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-2 text-sm text-gray-600">
+                        <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span>Settings Saved</span>
+                    </div>
+                    <div class="w-8 h-8 bg-gray-300 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">System Settings</h2>
+                    <p class="text-gray-600">Configure and customize your monitoring environment</p>
+                </div>
+                <div class="mt-6 lg:mt-0 flex space-x-4">
+                    <button class="bg-red-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors" onclick="saveAllSettings()">
+                        Save All Settings
+                    </button>
+                    <button class="bg-gray-100 text-gray-700 px-6 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors" onclick="resetSettings()">
+                        Reset to Default
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Settings Tabs -->
+    <section class="px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="settings-card rounded-xl shadow-lg">
+                <!-- Tab Navigation -->
+                <div class="border-b border-gray-200 px-6">
+                    <nav class="flex space-x-8">
+                        <div class="tab-button active" onclick="switchTab('general')">General</div>
+                        <div class="tab-button" onclick="switchTab('monitoring')">Monitoring</div>
+                        <div class="tab-button" onclick="switchTab('alerts')">Alerts</div>
+                        <div class="tab-button" onclick="switchTab('security')">Security</div>
+                        <div class="tab-button" onclick="switchTab('integrations')">Integrations</div>
+                    </nav>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="p-6">
+                    <!-- General Settings -->
+                    <div id="general-tab" class="tab-content active">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">General Settings</h3>
+                        
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Dashboard Theme</h4>
+                                    <p class="text-sm text-gray-600">Choose your preferred dashboard theme</p>
+                                </div>
+                                <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                    <option value="light">Light Mode</option>
+                                    <option value="dark">Dark Mode</option>
+                                    <option value="auto">Auto (System)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Language</h4>
+                                    <p class="text-sm text-gray-600">Select your preferred language</p>
+                                </div>
+                                <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                    <option value="en">English</option>
+                                    <option value="zh">中文</option>
+                                    <option value="es">Español</option>
+                                    <option value="fr">Français</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Auto-refresh Interval</h4>
+                                    <p class="text-sm text-gray-600">How often to refresh dashboard data</p>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <input type="range" min="5" max="60" value="30" class="slider" id="refresh-interval">
+                                    <span class="text-sm font-medium text-gray-900 w-16" id="refresh-value">30s</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Show Welcome Screen</h4>
+                                    <p class="text-sm text-gray-600">Display welcome screen on login</p>
+                                </div>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monitoring Settings -->
+                    <div id="monitoring-tab" class="tab-content">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Monitoring Configuration</h3>
+                        
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Real-time Monitoring</h4>
+                                    <p class="text-sm text-gray-600">Enable real-time data collection and updates</p>
+                                </div>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Data Retention Period</h4>
+                                    <p class="text-sm text-gray-600">How long to keep monitoring data</p>
+                                </div>
+                                <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                    <option value="7">7 Days</option>
+                                    <option value="30" selected>30 Days</option>
+                                    <option value="90">90 Days</option>
+                                    <option value="365">1 Year</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Metrics Collection</h4>
+                                    <p class="text-sm text-gray-600">Collect detailed performance metrics</p>
+                                </div>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Log Level</h4>
+                                    <p class="text-sm text-gray-600">Detail level for system logging</p>
+                                </div>
+                                <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                    <option value="error">Error Only</option>
+                                    <option value="warning">Warning</option>
+                                    <option value="info" selected>Info</option>
+                                    <option value="debug">Debug</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Alert Settings -->
+                    <div id="alerts-tab" class="tab-content">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Alert Configuration</h3>
+                        
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Email Notifications</h4>
+                                    <p class="text-sm text-gray-600">Send alerts via email</p>
+                                </div>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">SMS Notifications</h4>
+                                    <p class="text-sm text-gray-600">Send critical alerts via SMS</p>
+                                </div>
+                                <div class="toggle-switch" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Slack Integration</h4>
+                                    <p class="text-sm text-gray-600">Send alerts to Slack channels</p>
+                                </div>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Alert Threshold</h4>
+                                    <p class="text-sm text-gray-600">Response time threshold for alerts (ms)</p>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <input type="range" min="100" max="1000" value="500" class="slider" id="alert-threshold">
+                                    <span class="text-sm font-medium text-gray-900 w-16" id="threshold-value">500ms</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Quiet Hours</h4>
+                                    <p class="text-sm text-gray-600">Do not send alerts during specified hours</p>
+                                </div>
+                                <div class="toggle-switch" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div id="security-tab" class="tab-content">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Security Configuration</h3>
+                        
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Two-Factor Authentication</h4>
+                                    <p class="text-sm text-gray-600">Require 2FA for all users</p>
+                                </div>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Session Timeout</h4>
+                                    <p class="text-sm text-gray-600">Automatic logout after inactivity</p>
+                                </div>
+                                <select class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                    <option value="15">15 Minutes</option>
+                                    <option value="30" selected>30 Minutes</option>
+                                    <option value="60">1 Hour</option>
+                                    <option value="240">4 Hours</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">IP Whitelisting</h4>
+                                    <p class="text-sm text-gray-600">Restrict access to specific IP addresses</p>
+                                </div>
+                                <div class="toggle-switch" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Audit Logging</h4>
+                                    <p class="text-sm text-gray-600">Log all user activities and changes</p>
+                                </div>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-900">Data Encryption</h4>
+                                    <p class="text-sm text-gray-600">Encrypt all data at rest and in transit</p>
+                                </div>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Integrations -->
+                    <div id="integrations-tab" class="tab-content">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Third-Party Integrations</h3>
+                        
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                                        <span class="text-white font-bold text-sm">AWS</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-900">Amazon Web Services</h4>
+                                        <p class="text-sm text-gray-600">Cloud infrastructure and monitoring</p>
+                                    </div>
+                                </div>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                                        <span class="text-white font-bold text-sm">SL</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-900">Slack</h4>
+                                        <p class="text-sm text-gray-600">Team communication and notifications</p>
+                                    </div>
+                                </div>
+                                <div class="toggle-switch active" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
+                                        <span class="text-white font-bold text-sm">GH</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-900">GitHub</h4>
+                                        <p class="text-sm text-gray-600">Code repository and version control</p>
+                                    </div>
+                                </div>
+                                <div class="toggle-switch" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                                        <span class="text-white font-bold text-sm">DB</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-900">Datadog</h4>
+                                        <p class="text-sm text-gray-600">Advanced monitoring and analytics</p>
+                                    </div>
+                                </div>
+                                <div class="toggle-switch" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
+                                        <span class="text-white font-bold text-sm">JF</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-lg font-semibold text-gray-900">Jira</h4>
+                                        <p class="text-sm text-gray-600">Issue tracking and project management</p>
+                                    </div>
+                                </div>
+                                <div class="toggle-switch" onclick="toggleSetting(this)"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center space-x-3 mb-4">
+                <div class="w-8 h-8 bg-red-600 hexagon flex items-center justify-center">
+                    <span class="text-white font-bold">H</span>
+                </div>
+                <span class="text-lg font-semibold">HSBC Agentic Monitoring</span>
+            </div>
+            <p class="text-gray-400 text-sm">© 2024 HSBC Holdings plc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSliders();
+            initializeAnimations();
+        });
+
+        // Initialize sliders
+        function initializeSliders() {
+            const refreshSlider = document.getElementById('refresh-interval');
+            const refreshValue = document.getElementById('refresh-value');
+            const thresholdSlider = document.getElementById('alert-threshold');
+            const thresholdValue = document.getElementById('threshold-value');
+
+            refreshSlider.addEventListener('input', function() {
+                refreshValue.textContent = this.value + 's';
+            });
+
+            thresholdSlider.addEventListener('input', function() {
+                thresholdValue.textContent = this.value + 'ms';
+            });
+        }
+
+        // Switch tabs
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Add active class to clicked tab button
+            event.target.classList.add('active');
+            
+            // Animate tab content
+            anime({
+                targets: '#' + tabName + '-tab',
+                translateY: [20, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutQuart'
+            });
+        }
+
+        // Toggle setting
+        function toggleSetting(element) {
+            element.classList.toggle('active');
+            
+            // Animate toggle
+            anime({
+                targets: element,
+                scale: [1, 1.1, 1],
+                duration: 200,
+                easing: 'easeOutQuart'
+            });
+            
+            // Show feedback
+            const isActive = element.classList.contains('active');
+            showToast(`Setting ${isActive ? 'enabled' : 'disabled'}`, 'success');
+        }
+
+        // Save all settings
+        function saveAllSettings() {
+            showToast('Saving all settings...', 'info');
+            
+            // Simulate save operation
+            setTimeout(() => {
+                showToast('All settings saved successfully', 'success');
+            }, 2000);
+        }
+
+        // Reset settings
+        function resetSettings() {
+            if (confirm('Are you sure you want to reset all settings to default? This action cannot be undone.')) {
+                showToast('Resetting settings to default...', 'info');
+                
+                // Reset all toggles to default state
+                document.querySelectorAll('.toggle-switch').forEach(toggle => {
+                    toggle.classList.remove('active');
+                });
+                
+                // Activate default toggles
+                document.querySelectorAll('.toggle-switch').forEach((toggle, index) => {
+                    if ([0, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13].includes(index)) {
+                        toggle.classList.add('active');
+                    }
+                });
+                
+                // Reset sliders
+                document.getElementById('refresh-interval').value = 30;
+                document.getElementById('refresh-value').textContent = '30s';
+                document.getElementById('alert-threshold').value = 500;
+                document.getElementById('threshold-value').textContent = '500ms';
+                
+                setTimeout(() => {
+                    showToast('Settings reset to default values', 'success');
+                }, 1500);
+            }
+        }
+
+        // Initialize animations
+        function initializeAnimations() {
+            anime({
+                targets: '.settings-card',
+                translateY: [20, 0],
+                opacity: [0, 1],
+                duration: 600,
+                easing: 'easeOutQuart'
+            });
+
+            anime({
+                targets: '.nav-item',
+                translateY: [-10, 0],
+                opacity: [0, 1],
+                duration: 500,
+                easing: 'easeOutQuart',
+                delay: anime.stagger(100, {start: 300})
+            });
+
+            anime({
+                targets: '.tab-button',
+                translateY: [-5, 0],
+                opacity: [0, 1],
+                duration: 400,
+                easing: 'easeOutQuart',
+                delay: anime.stagger(50, {start: 400})
+            });
+        }
+
+        // Toast notifications
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-20 right-4 px-6 py-3 rounded-lg text-white font-medium z-50 transform translate-x-full transition-transform duration-300`;
+            
+            switch(type) {
+                case 'success':
+                    toast.classList.add('bg-green-600');
+                    break;
+                case 'error':
+                    toast.classList.add('bg-red-600');
+                    break;
+                case 'warning':
+                    toast.classList.add('bg-yellow-600');
+                    break;
+                default:
+                    toast.classList.add('bg-blue-600');
+            }
+            
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full');
+            }, 100);
+            
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
